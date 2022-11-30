@@ -1,10 +1,10 @@
-FROM node:10.15.2-alpine as Builder
-RUN apk add git
+FROM node:10.15 as Builder
+RUN apt install git
 RUN git clone -b sonarqube https://github.com/Sharathholla/React_devops.git
 RUN cd React_devops
 WORKDIR React_devops
 RUN npm install
-RUN npm npm install sonarqube-scanner
+RUN npm install sonarqube-scanner
 RUN node sonarqube-scanner.js
 RUN npm run-script build
 
