@@ -1,0 +1,38 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+  pre_build:
+    commands:
+      - docker --version
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=775422423362.dkr.ecr.ap-south-1.amazonaws.com/react_application
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=build=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+      - echo Installing source NPM dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+      - echo buildin docker image...
+      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+  post_build:
+    commands:
+      - echo npm build completed
+      - echo docker image $REPOSITORY_URI:$IMAGE_TAG built
+      - docker push -t $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image defenition file ...
+      - printf '[{"name": "nodeapp", "imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefenitions.json
+      - cat imagedefenitions.json
+
+artifacts:
+  files:
+    - '**/*'
+    - imagedefenitions.json
+    #- "build/**/*"
+  base-directory: 'build'
+  #discard-paths: yes
