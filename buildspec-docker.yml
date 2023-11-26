@@ -38,6 +38,7 @@ phases:
       # - printf '[{"name": "react_application", "imageUri": "%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefenitions.json
       - echo $REPOSITORY_URI:$IMAGE_TAG > imagedefenitions.json
       - cat imagedefenitions.json
+      - cat trivy_image_report.json
 
 artifacts:
   files:
