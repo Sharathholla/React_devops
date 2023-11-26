@@ -16,7 +16,7 @@ phases:
       - echo Installing source NPM dependencies...
       - npm install
       - echo Installing trivy
-      - aws s3 cp s3://sqs-handson-s3-bucket/trivy.repo /etc/yum.repos.d
+      - cp trivy.repo /etc/yum.repos.d/
       - yum -y update
       - yum -y install trivy
     commands:
