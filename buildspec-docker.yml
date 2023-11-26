@@ -15,8 +15,12 @@ phases:
       - IMAGE_TAG=build=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - echo Installing source NPM dependencies...
       - npm install
-      - curl -L https://github.com/aquasecurity/trivy/releases/download/v0.47.0/trivy_0.47.0_Linux-64bit.tar.gz | tar xz
-  build:
+      - echo Installing trivy
+      - yum install wget
+      - wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | yum add -
+      - echo yum https://aquasecurity.github.io/trivy-repo/yum bionic main | tee -a /etc/yum/sources.list.d/trivy.list
+      - yum update
+      - yum install -y trivy
     commands:
       - echo Build started on `date`
       - npm run build
