@@ -47,6 +47,6 @@ artifacts:
     - '**/*'
     - imagedefenitions.json
     - trivy_image_report.json
-    #- "build/**/*"
-  base-directory: 'build'
+    - "build/**/*"
+  # base-directory: 'build'
   #discard-paths: yes
