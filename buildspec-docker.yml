@@ -41,6 +41,8 @@ phases:
       - cat trivy_image_report.json
 
 artifacts:
+  commnds:
+    - ls
   files:
     - '**/*'
     - imagedefenitions.json
