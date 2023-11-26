@@ -19,6 +19,7 @@ phases:
       - cp trivy.repo /etc/yum.repos.d/
       - yum -y update
       - yum -y install trivy
+  build:
     commands:
       - echo Build started on `date`
       - npm run build
