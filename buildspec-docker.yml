@@ -15,6 +15,7 @@ phases:
       - IMAGE_TAG=build=$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
       - echo Installing source NPM dependencies...
       - npm install
+      - curl -L https://github.com/aquasecurity/trivy/releases/download/v0.47.0/trivy_0.47.0_Linux-64bit.tar.gz | tar xz
   build:
     commands:
       - echo Build started on `date`
@@ -22,6 +23,8 @@ phases:
       - echo buildin docker image...
       # - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
       - docker build -t $REPOSITORY_URI .
+      - echo Scanning docker image using trivy
+      - trivy image --timeout 10m --severity HIGH,CRITICAL $REPOSITORY_URI --output trivy_image_report.json
   post_build:
     commands:
       - echo npm build completed
@@ -37,6 +40,7 @@ artifacts:
   files:
     - '**/*'
     - imagedefenitions.json
+    - trivy_image_report.json
     #- "build/**/*"
   base-directory: 'build'
   #discard-paths: yes
