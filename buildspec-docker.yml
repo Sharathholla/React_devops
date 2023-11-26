@@ -28,8 +28,6 @@ phases:
       - docker build -t $REPOSITORY_URI .
       - echo Scanning docker image using trivy
       - trivy image --timeout 10m --severity HIGH,CRITICAL $REPOSITORY_URI --output trivy_image_report.json
-      - pwd
-      - ls
   post_build:
     commands:
       - echo npm build completed
