@@ -30,7 +30,7 @@ phases:
   post_build:
     commands:
       - echo npm build completed
-      - echo docker image $REPOSITORY_URI:$IMAGE_TAG built
+      - echo docker image $REPOSITORY_URI
       # - docker push $REPOSITORY_URI:$IMAGE_TAG
       - docker push $REPOSITORY_URI
       - echo Writing image defenition file ...
