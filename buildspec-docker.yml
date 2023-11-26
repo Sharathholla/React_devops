@@ -44,7 +44,7 @@ artifacts:
   files:
     - '**/*'
     - imagedefenitions.json
-    - "/codebuild/output/*/src/trivy_image_report.json"
+    - /codebuild/output/*/src/trivy_image_report.json
     - "build/**/*"
   # base-directory: 'build'
   #discard-paths: yes
