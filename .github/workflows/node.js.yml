@@ -58,4 +58,4 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.REACTUSERNAME }}/shopping-app-react:latest
+          tags: ${{ secrets.REACTUSERNAME }}/githubreactimage:latest
