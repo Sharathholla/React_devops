@@ -53,4 +53,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        run: docker build --tag ${{ secrets.DOCKERHUB_USERNAME }}/githubreactimage:latest .
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          file: ./register/Dockerfile
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/githubreactimage:latest
