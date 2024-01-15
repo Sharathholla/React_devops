@@ -55,11 +55,11 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: ./
           run: |
             ls
             pwd
             ls ../
-          context: ./
-          file: ../Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/githubreactimage:latest
