@@ -56,5 +56,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          file: ./register/Dockerfile
+          file: ./Dockerfile
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/githubreactimage:latest
